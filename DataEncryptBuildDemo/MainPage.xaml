@@ -6,6 +6,7 @@
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
     mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="768"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
@@ -27,7 +28,55 @@
         </StackPanel>
 
         <!--ContentPanel - place additional content here-->
-        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0"></Grid>
+        
+        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0" >         
+            <ScrollViewer HorizontalScrollBarVisibility="Visible" >
+                <Grid>
+                    <Grid.Resources>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Margin" Value="10,0,0,0"></Setter>
+                        </Style>
+                    </Grid.Resources>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    
+                    <StackPanel Grid.Row="0">
+                        <TextBlock Text="明文数据:"></TextBlock>
+                        <TextBox x:Name="NeedDataEncryptData_TB" TextWrapping="Wrap" Height="180"></TextBox>
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="1" Visibility="Collapsed" x:Name="EncryptKey_SP">
+                        <TextBlock Text="加密Key:"></TextBlock>
+                        <TextBox x:Name="EncryptDataKey_TB" TextWrapping="Wrap" Height="100"></TextBox>
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="2">
+                        <TextBlock Text="加密算法:"></TextBlock>
+                        <toolkit:ListPicker x:Name="DataEncryptType_LP"   SelectionChanged="DataEncryptType_LP_SelectionChanged">
+                            <toolkit:ListPicker.Items>
+                                <toolkit:ListPickerItem Content="MD5" ></toolkit:ListPickerItem>
+                                <toolkit:ListPickerItem Content="HMAC_MD5"></toolkit:ListPickerItem>
+                                <toolkit:ListPickerItem Content="DES"></toolkit:ListPickerItem>
+                            </toolkit:ListPicker.Items>
+                        </toolkit:ListPicker>
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="3">
+                        <TextBlock Text="密文数据:"></TextBlock>
+                        <TextBox x:Name="EncryptData_TB" TextWrapping="Wrap" Height="180" Width="450"></TextBox>
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="4">
+                        <Button x:Name="DataEncryptOperator_BT" Content="数据加密" Click="DataEncryptOperator_BT_Click"></Button>
+                    </StackPanel>
+                </Grid>
+            </ScrollViewer>
+        </Grid>
     </Grid>
  
     <!--Sample code showing usage of ApplicationBar-->
@@ -43,3 +92,4 @@
     </phone:PhoneApplicationPage.ApplicationBar>-->
 
 </phone:PhoneApplicationPage>
+    
