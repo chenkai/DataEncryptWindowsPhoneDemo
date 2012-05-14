@@ -28,10 +28,10 @@
         </StackPanel>
 
         <!--ContentPanel - place additional content here-->
+
+        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0" >
         
-        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0" >         
-            <ScrollViewer HorizontalScrollBarVisibility="Visible" >
-                <Grid>
+                <Grid >
                     <Grid.Resources>
                         <Style TargetType="TextBlock">
                             <Setter Property="Margin" Value="10,0,0,0"></Setter>
@@ -44,7 +44,7 @@
                         <RowDefinition Height="Auto"></RowDefinition>
                         <RowDefinition Height="Auto"></RowDefinition>
                     </Grid.RowDefinitions>
-                    
+
                     <StackPanel Grid.Row="0">
                         <TextBlock Text="明文数据:"></TextBlock>
                         <TextBox x:Name="NeedDataEncryptData_TB" TextWrapping="Wrap" Height="180"></TextBox>
@@ -55,27 +55,28 @@
                         <TextBox x:Name="EncryptDataKey_TB" TextWrapping="Wrap" Height="100"></TextBox>
                     </StackPanel>
 
-                    <StackPanel Grid.Row="2">
+                    <StackPanel Grid.Row="2" >
                         <TextBlock Text="加密算法:"></TextBlock>
-                        <toolkit:ListPicker x:Name="DataEncryptType_LP"   SelectionChanged="DataEncryptType_LP_SelectionChanged">
+                        <toolkit:ListPicker x:Name="DataEncryptType_LP"   >
                             <toolkit:ListPicker.Items>
                                 <toolkit:ListPickerItem Content="MD5" ></toolkit:ListPickerItem>
                                 <toolkit:ListPickerItem Content="HMAC_MD5"></toolkit:ListPickerItem>
                                 <toolkit:ListPickerItem Content="DES"></toolkit:ListPickerItem>
-                            </toolkit:ListPicker.Items>
+                                <toolkit:ListPickerItem Content="Triple_DES"></toolkit:ListPickerItem>
+                        </toolkit:ListPicker.Items>
                         </toolkit:ListPicker>
                     </StackPanel>
 
                     <StackPanel Grid.Row="3">
                         <TextBlock Text="密文数据:"></TextBlock>
-                        <TextBox x:Name="EncryptData_TB" TextWrapping="Wrap" Height="180" Width="450"></TextBox>
+                        <TextBox x:Name="EncryptData_TB" TextWrapping="Wrap" Height="180" ></TextBox>
                     </StackPanel>
 
                     <StackPanel Grid.Row="4">
                         <Button x:Name="DataEncryptOperator_BT" Content="数据加密" Click="DataEncryptOperator_BT_Click"></Button>
                     </StackPanel>
                 </Grid>
-            </ScrollViewer>
+           
         </Grid>
     </Grid>
  

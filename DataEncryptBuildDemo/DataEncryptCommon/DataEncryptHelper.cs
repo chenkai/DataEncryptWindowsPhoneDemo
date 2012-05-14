@@ -9,12 +9,16 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 
+using System.Text;
+
 namespace DataEncryptBuildDemo.DataEncryptCommon
 {
     public enum DataEncryptType
     {
         MD5,
-        HMACMD5
+        HMACMD5,
+        DES,
+        TripleDES 
     }
     public class DataEncryptHelper
     {
@@ -38,6 +42,14 @@ namespace DataEncryptBuildDemo.DataEncryptCommon
                     break;
                 case DataEncryptType.HMACMD5:
                     dataEncryptStr=HMACMD5DataEncrypt.HMAC_MD5(sourceContent, encryptKey);//HMACMD5加密
+                    break;
+                case DataEncryptType.DES:
+                  
+                    break;
+                case DataEncryptType.TripleDES:
+                    byte[] dataEncryptBytes=Des_DataEncrypt.TripleDesEncryptWithOutKey(sourceContent);
+                    dataEncryptStr =UTF8Encoding.UTF8.GetString(dataEncryptBytes,0,dataEncryptBytes.Length);
+                    break;
                     break;
                 default:
                     break;

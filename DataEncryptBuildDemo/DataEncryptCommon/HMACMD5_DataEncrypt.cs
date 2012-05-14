@@ -11,6 +11,10 @@ using System.Windows.Shapes;
 
 namespace DataEncryptBuildDemo.DataEncryptCommon
 {
+    /// <summary>
+    /// HMACMD Data Encrypt Operator
+    /// Author:chenkai Data:6/7/2011
+    /// </summary>
     public class HMACMD5DataEncrypt
     {
         /// <summary>  

@@ -63,12 +63,27 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="DataEncryptCommon\DataEncryptHelper.cs" />
+    <Compile Include="DataEncryptCommon\DESDataEncrypt\BLOCK8BYTE.cs" />
+    <Compile Include="DataEncryptCommon\DESDataEncrypt\DesManaged.cs" />
+    <Compile Include="DataEncryptCommon\DESDataEncrypt\DESTables.cs" />
+    <Compile Include="DataEncryptCommon\DESDataEncrypt\KeySet.cs" />
+    <Compile Include="DataEncryptCommon\DESDataEncrypt\TripleDESCryptoServiceProvider.cs" />
+    <Compile Include="DataEncryptCommon\DESDataEncrypt\TripleDesManaged.cs" />
+    <Compile Include="DataEncryptCommon\DESDataEncrypt\WorkingSet.cs" />
+    <Compile Include="DataEncryptCommon\Des_DataEncrypt.cs" />
     <Compile Include="DataEncryptCommon\HMACMD5_DataEncrypt.cs" />
     <Compile Include="DataEncryptCommon\MD5_DataEncrypt.cs" />
+    <Compile Include="IsolatedStorageCommon\IsolatedStorageSettingHelper.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserControls\DataEncryptKey.xaml.cs">
+      <DependentUpon>DataEncryptKey.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\PopupCotainer.xaml.cs">
+      <DependentUpon>PopupCotainer.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -78,6 +93,14 @@
     <Page Include="MainPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\DataEncryptKey.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\PopupCotainer.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>

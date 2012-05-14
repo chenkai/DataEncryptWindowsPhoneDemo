@@ -12,6 +12,9 @@ using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 
 using DataEncryptBuildDemo.DataEncryptCommon;
+using System.Windows.Controls.Primitives;
+using DataEncryptBuildDemo.UserControls;
+
 namespace DataEncryptBuildDemo
 {
     public partial class MainPage : PhoneApplicationPage
@@ -19,8 +22,8 @@ namespace DataEncryptBuildDemo
         // Constructor
         public MainPage()
         {
-            InitializeComponent();          
-        }      
+            InitializeComponent();         
+        } 
 
         private void DataEncryptOperator_BT_Click(object sender, RoutedEventArgs e)
         {
@@ -44,14 +47,28 @@ namespace DataEncryptBuildDemo
                             this.EncryptData_TB.Text = encryptDataStr;
                         break;
                     case"HMAC_MD5":
-                        
-                        //string encryptDataStr=DataEncryptCommon.DataEncryptHelper.ExcuteDataEncrypt(inputNeedEncryptStr
+                        string hmacMd5KeyStr=IsolatedStorageCommon.IsolatedStorageSettingHelper.GetIsolateStorageByStr("HMACMD5Key");
+                        if (string.IsNullOrEmpty(hmacMd5KeyStr))
+                            return;
+                        string hmacEncryptDataStr = DataEncryptCommon.DataEncryptHelper.ExcuteDataEncrypt(inputNeedEncryptStr, hmacMd5KeyStr, DataEncryptType.HMACMD5);
+                        if (!string.IsNullOrEmpty(hmacEncryptDataStr))
+                            this.EncryptData_TB.Text = hmacEncryptDataStr;
                         break;
                     case"DES":
+                        break;
+                    case "Triple_DES":
+                        string tripleDESEncryptStr = DataEncryptCommon.DataEncryptHelper.ExcuteDataEncrypt(inputNeedEncryptStr, string.Empty, DataEncryptType.TripleDES);
+                        if (!string.IsNullOrEmpty(tripleDESEncryptStr))
+                            this.EncryptData_TB.Text = tripleDESEncryptStr;
                         break;
                     default:
                         break;
                 }
+
+                //Lose Control Enable Status          
+                this.NeedDataEncryptData_TB.IsEnabled = true;
+                this.DataEncryptType_LP.IsEnabled = true;
+                this.EncryptData_TB.IsEnabled = true;
 
             }
         }
@@ -60,11 +77,22 @@ namespace DataEncryptBuildDemo
         {
             bool isValidate = true;
             string inputNeedToEncryptStr = this.NeedDataEncryptData_TB.Text.Trim();
+            string dataEncryptOperator =string.Empty;
+
+            if (DataEncryptType_LP != null)      
+                dataEncryptOperator = (this.DataEncryptType_LP.SelectedItem as ListPickerItem).Content as string;
+
             if (string.IsNullOrEmpty(inputNeedToEncryptStr))
             {
                 MessageBox.Show("Please input the Data you want to Encrypt ?", "Confirm Input", MessageBoxButton.OK);
                 this.NeedDataEncryptData_TB.Focus();
                 isValidate = false;
+            }
+            else if (!string.IsNullOrEmpty(dataEncryptOperator))
+            {
+                PopupCotainer newPopupContainer = new PopupCotainer(this);
+                if (dataEncryptOperator.Equals("HMAC_MD5"))
+                    newPopupContainer.Show(new DataEncryptKey());  
             }
             return isValidate;
         }
@@ -77,8 +105,9 @@ namespace DataEncryptBuildDemo
             string dataEncryptOperator = (this.DataEncryptType_LP.SelectedItem as ListPickerItem).Content as string;
             if (string.IsNullOrEmpty(dataEncryptOperator))
                 return;
-            if(dataEncryptOperator.Equals("HMAC_MD5"))
-                this.EncryptKey_SP.Visibility = Visibility.Visible;
+            PopupCotainer newPopupContainer=new PopupCotainer(this);
+            if (dataEncryptOperator.Equals("HMAC_MD5"))
+                newPopupContainer.Show(new DataEncryptKey());           
         }
     }
 }
